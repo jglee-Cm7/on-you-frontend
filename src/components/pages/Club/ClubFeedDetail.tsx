@@ -139,7 +139,7 @@ const ClubFeedDetail: React.FC<NativeStackScreenProps<ClubStackParamList, "ClubF
     );
   };
 
-  const likeFeed = useCallback((feedIndex?: number, feedId?: number) => {
+  const likeFeed = (feedIndex?: number, feedId?: number) => {
     if (feedIndex === undefined || feedId === undefined) return;
     const requestData: FeedLikeRequest = { feedId };
     likeFeedMutation.mutate(requestData, {
@@ -151,7 +151,7 @@ const ClubFeedDetail: React.FC<NativeStackScreenProps<ClubStackParamList, "ClubF
     });
 
     dispatch(feedSlice.actions.likeToggle({ feedId }));
-  }, []);
+  };
 
   const blockUser = () => {
     if (selectFeedData === undefined || selectFeedData?.id === -1) {

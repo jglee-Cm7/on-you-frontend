@@ -332,7 +332,7 @@ const ClubTopTabs: React.FC<NativeStackScreenProps<ClubStackParamList, "ClubTopT
       toast.show("유저 정보를 알 수 없습니다.", { type: "warning" });
       return;
     }
-    push("FeedStack", { screen: "ImageSelection", params: { clubId } });
+    push("FeedStack", { screen: "ImageSelection", params: { clubData: { id: clubId } } });
   };
 
   const openShare = async () => {

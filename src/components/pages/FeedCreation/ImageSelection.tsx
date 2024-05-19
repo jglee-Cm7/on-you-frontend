@@ -115,24 +115,6 @@ const ImageSelection: React.FC<NativeStackScreenProps<FeedStackParamList, "Image
     },
   });
 
-  useLayoutEffect(() => {
-    setOptions({
-      headerLeft: () => (
-        <TouchableOpacity onPress={onCancel}>
-          <Entypo name="chevron-thin-left" size={20} color="black" />
-        </TouchableOpacity>
-      ),
-      headerRight: () =>
-        mutation.isLoading ? (
-          <ActivityIndicator />
-        ) : (
-          <TouchableOpacity disabled={imageURLs.length < 1} onPress={onSubmit}>
-            <CustomText style={{ color: "#2995FA", fontSize: 14, lineHeight: 20 }}>저장</CustomText>
-          </TouchableOpacity>
-        ),
-    });
-  }, [imageURLs, content, mutation.isLoading]);
-
   useEffect(() => {
     const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
       onCancel();
@@ -163,7 +145,7 @@ const ImageSelection: React.FC<NativeStackScreenProps<FeedStackParamList, "Image
     const requestData: FeedCreationRequest = {
       image,
       data: {
-        clubId: clubData.id,
+        clubId: clubData?.id,
         content: content.trim(),
       },
     };
@@ -235,6 +217,24 @@ const ImageSelection: React.FC<NativeStackScreenProps<FeedStackParamList, "Image
     if (q === undefined) return;
     setImageURLs((prev) => prev.filter((_, index) => index != q));
   };
+
+  useLayoutEffect(() => {
+    setOptions({
+      headerLeft: () => (
+        <TouchableOpacity onPress={onCancel}>
+          <Entypo name="chevron-thin-left" size={20} color="black" />
+        </TouchableOpacity>
+      ),
+      headerRight: () =>
+        mutation.isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <TouchableOpacity disabled={imageURLs.length < 1} onPress={onSubmit}>
+            <CustomText style={{ color: "#2995FA", fontSize: 14, lineHeight: 20 }}>저장</CustomText>
+          </TouchableOpacity>
+        ),
+    });
+  }, [imageURLs, content, mutation.isLoading]);
 
   const renderItem = ({ drag, isActive, item, getIndex }: RenderItemParams<ImageBundle>) => {
     return (
